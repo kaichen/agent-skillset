@@ -1,0 +1,12 @@
+{
+  "name": "analyze-claude-code",
+  "version": "0.1.0",
+  "description": "Analyze Claude Code CLI source code to understand its architecture and implementation",
+  "author": {
+    "name": "Kai Chen",
+    "email": "kai@thekaiway.com",
+    "url": "https://github.com/kaichen"
+  },
+  "license": "MIT",
+  "skills": "./skills/"
+}

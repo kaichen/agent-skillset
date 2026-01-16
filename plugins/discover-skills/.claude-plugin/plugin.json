@@ -1,0 +1,12 @@
+{
+  "name": "discover-skills",
+  "version": "0.1.0",
+  "description": "Discover and explore available Claude Code skills",
+  "author": {
+    "name": "Kai Chen",
+    "email": "kai@thekaiway.com",
+    "url": "https://github.com/kaichen"
+  },
+  "license": "MIT",
+  "skills": "./skills/"
+}

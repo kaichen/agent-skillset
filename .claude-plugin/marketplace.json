@@ -1,0 +1,24 @@
+{
+  "name": "agent-skillset",
+  "version": "0.1.0",
+  "description": "A collection of Claude Code plugins and skills",
+  "author": {
+    "name": "Kai Chen",
+    "email": "kai@thekaiway.com",
+    "url": "https://github.com/kaichen"
+  },
+  "repository": "https://github.com/kaichen/agent-skillset",
+  "license": "MIT",
+  "plugins": [
+    {
+      "name": "analyze-claude-code",
+      "path": "./plugins/analyze-claude-code",
+      "description": "Analyze Claude Code CLI source code to understand its architecture and implementation"
+    },
+    {
+      "name": "discover-skills",
+      "path": "./plugins/discover-skills",
+      "description": "Discover and explore available Claude Code skills"
+    }
+  ]
+}
