@@ -10,6 +10,7 @@ A collection of Agent Skills, could be used as Claude Code plugins.
 |--------|-------------|
 | [analyze-claude-code](./plugins/analyze-claude-code) | Analyze Claude Code CLI source code |
 | [discover-skills](./plugins/discover-skills) | Discover available skills and popular collections |
+| [grok-search](./plugins/grok-search) | Search and research using Grok AI via browser automation |
 
 ## What is Agent Skills?
 

@@ -10,6 +10,7 @@
 |------|------|
 | [analyze-claude-code](./plugins/analyze-claude-code) | 分析 Claude Code CLI 源码 |
 | [discover-skills](./plugins/discover-skills) | 发现可用技能和热门集合 |
+| [grok-search](./plugins/grok-search) | 通过浏览器自动化使用 Grok AI 搜索和研究 |
 
 ## 什么是 Agent Skills？
 
