@@ -1,6 +1,6 @@
 ---
 name: analyze-claude-code
-description: Analyze Claude Code CLI source code to understand its architecture, implementation details, and design patterns. Use when users want to explore how Claude Code works internally, understand specific features like tools/hooks/MCP/permissions, or learn from its codebase design. Triggers on questions about Claude Code internals, source code analysis requests, or "how does Claude Code implement X" queries.
+description: Analyze Claude Code CLI source code to understand its architecture, implementation details, and design patterns. Use when users want to explore how Claude Code works internally, understand specific features like tools/hooks/MCP/permissions, or learn from its codebase design. Triggers on questions about Claude Code internals, source code analysis requests, or "how does Claude Code implement X" or "what's the prompts of claude code's tools" or "what's the system prompt of claude code" queries.
 ---
 
 # Analyze Claude Code
@@ -13,6 +13,43 @@ Deep dive into Claude Code CLI source code to understand its architecture and im
 # One-liner: download, extract, and format
 curl -sL "$(curl -s https://registry.npmjs.org/@anthropic-ai/claude-code/latest | jq -r '.dist.tarball')" -o claude-code.tgz && tar -xzf claude-code.tgz && npx js-beautify --replace package/cli.js
 ```
+
+## Official Documentation
+
+**Access official docs via WebFetch tool:**
+
+Use the WebFetch tool to query Claude Code's official documentation when you need authoritative information about features, API, or best practices.
+
+**Documentation entry point:**
+- URL: `https://code.claude.com/docs/llms.txt`
+- Contains: Quickstart, CLI Reference, Settings, Hooks, MCP, Skills, Plugins, Security, and more
+
+**Example queries:**
+
+```bash
+# Get documentation overview
+Use WebFetch tool with:
+  url: https://code.claude.com/docs/llms.txt
+  prompt: "Show me the table of contents and main sections"
+
+# Query specific topics
+Use WebFetch tool with:
+  url: https://code.claude.com/docs/llms.txt
+  prompt: "How do hooks work? Explain with examples"
+
+Use WebFetch tool with:
+  url: https://code.claude.com/docs/llms.txt
+  prompt: "What are the available MCP transport types and their differences?"
+```
+
+**When to use:**
+- Verify implementation details not clear from source code
+- Understand intended behavior and design philosophy
+- Check for recent updates or documentation changes
+- Find usage examples and best practices
+- Cross-reference source code with official documentation
+
+---
 
 ## Key Modules
 
@@ -37,6 +74,90 @@ grep -n "Executes a given bash command\|Reads a file from\|Fast file pattern" pa
 - Tool descriptions as template strings (e.g., `SEB` for Read, `c10` for Glob)
 
 **Prompt sections:** Tone/style, Professional objectivity, Task management, Tool usage policy, Code references
+
+---
+
+#### Advanced Prompt Discovery
+
+**Core Principle:** Trace prompts from function entry points using code structure, not content keywords.
+
+**Three-Layer Abstraction:**
+- **Layer 3 (Code):** Long strings, template vars, API calls (most stable, start here)
+- **Layer 2 (Structure):** Imperative patterns, examples, lists (medium abstraction)
+- **Layer 1 (Content):** Specific text keywords (fragile, avoid dependency)
+
+**Tracing Flow:**
+```
+/command → Command registry → Handler function → Prompt construction
+```
+
+**Key search patterns:**
+
+```bash
+# Layer 3: Code characteristics (start here)
+grep -n "return \`" package/cli.js           # Template strings
+grep -n "messages\s*:\|system\s*:" package/cli.js  # API calls
+awk '/return `/{start=NR} /^`/&&NR-start>15{print "Line",start}' package/cli.js  # Long strings
+
+# Layer 2: Structure characteristics
+grep -n "You are\|Your task\|Please" package/cli.js  # Imperative patterns
+grep -n "<example>" package/cli.js           # Example blocks
+grep -n "format.*response\|output.*should" package/cli.js  # Format descriptions
+
+# Combined: Long strings with imperative content
+grep -n "return \`" package/cli.js | while read l; do
+    line=$(echo $l | cut -d: -f1)
+    sed -n "$line,$((line+20))p" package/cli.js | grep -q "You are\|Your task" && echo "Line $line"
+done
+```
+
+**Tracing workflow (from command):**
+
+```bash
+# 1. Find command definition
+grep -n 'name.*"compact"' package/cli.js
+# → Line 12345
+
+# 2. Extract command object (check type: "prompt" or "local")
+sed -n '12340,12370p' package/cli.js
+# → type: "local", handler: (args) => kv1(args)
+
+# 3. Find handler function
+grep -n 'function kv1\|const kv1' package/cli.js
+# → Line 45678
+
+# 4. Search for prompt construction in handler
+sed -n '45678,45900p' package/cli.js | grep -n 'return `\|messages:\|system:'
+# → Line 23: return `Your task is to create...
+
+# 5. Extract full prompt
+sed -n '45700,46200p' package/cli.js
+```
+
+**Prompt identification heuristics:**
+
+A code block is likely a prompt if it scores ≥4:
+- Contains "You are|Your task|Please|Analyze" (+3)
+- Contains "format|structure|output|response" (+2)
+- Contains `<example>` or `Example:` (+2)
+- Contains lists (^[0-9].|^-) with 3+ items (+1)
+- Has 3+ paragraphs (blank lines) (+1)
+
+**Example: Trace any local command**
+
+```bash
+COMMAND="init"  # or any command name
+
+# Step 1-2: Find command and handler
+HANDLER=$(sed -n "$(grep -n "name.*\"$COMMAND\"" package/cli.js | cut -d: -f1),+30p" package/cli.js | \
+          grep -o 'handler.*[a-zA-Z_][a-zA-Z0-9_]*' | tail -1)
+
+# Step 3: Find handler line
+HANDLER_LINE=$(grep -n "function $HANDLER\|const $HANDLER" package/cli.js | cut -d: -f1)
+
+# Step 4-5: Extract prompts
+sed -n "$HANDLER_LINE,$((HANDLER_LINE+300))p" package/cli.js | grep -B2 -A20 'return `'
+```
 
 ---
 
