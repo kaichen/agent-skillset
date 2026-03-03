@@ -1,6 +1,6 @@
 ---
 name: analyze-claude-code
-description: Analyze Claude Code CLI source code to understand its architecture, implementation details, and design patterns. Use when users want to explore how Claude Code works internally, understand specific features like tools/hooks/MCP/permissions, or learn from its codebase design. Triggers on questions about Claude Code internals, source code analysis requests, or "how does Claude Code implement X" or "what's the prompts of claude code's tools" or "what's the system prompt of claude code" queries.
+description: Analyze Claude Code CLI source code to understand its architecture design and implementation details(prompts, built-in tool, agents). Use when users want to explore how Claude Code works internally, understand specific features like tools/hooks/MCP/permissions, or learn from its codebase design. Triggers on questions about Claude Code internals, source code analysis requests, or "how does Claude Code implement X" or "what's the prompts of claude code's X" queries.
 ---
 
 # Analyze Claude Code
