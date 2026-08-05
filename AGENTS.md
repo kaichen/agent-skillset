@@ -6,35 +6,32 @@
 
 ## OVERVIEW
 
-Claude Code plugin bundle providing Agent Skills for skill discovery, source analysis, and Grok browser integration. Documentation-only repo (no executable code).
+Agent Skills collection for skill discovery, source analysis, and Grok browser integration. Documentation-only repo (no executable code). Installed via the `skills` CLI (`npx skills add kaichen/agent-skillset`).
 
 ## STRUCTURE
 
 ```
 agent-skillset/
-├── .claude-plugin/marketplace.json   # Bundle metadata for `claude plugins marketplace`
-├── plugins/
-│   ├── analyze-claude-code/          # Reverse-engineer Claude Code CLI
-│   ├── discover-skills/              # Browse/search skill collections
-│   └── grok-search/                  # Grok AI via Claude-in-Chrome MCP
-└── README.md                         # Install instructions + skill ecosystem overview
+├── skills/
+│   ├── analyze-claude-code/SKILL.md   # Reverse-engineer Claude Code CLI
+│   ├── discover-skills/SKILL.md       # Browse/search skill collections
+│   └── grok-search/SKILL.md           # Grok AI via Claude-in-Chrome MCP
+└── README.md                          # Install instructions + skill ecosystem overview
 ```
 
 ## WHERE TO LOOK
 
 | Task | Location | Notes |
 |------|----------|-------|
-| Add new plugin | `plugins/<name>/.claude-plugin/plugin.json` + `skills/<name>/SKILL.md` | Follow existing structure |
-| Modify skill behavior | `plugins/*/skills/*/SKILL.md` | YAML frontmatter + markdown body |
-| Update marketplace listing | `.claude-plugin/marketplace.json` | Add to `plugins` array |
+| Add new skill | `skills/<name>/SKILL.md` | YAML frontmatter + markdown body |
+| Modify skill behavior | `skills/*/SKILL.md` | Keep frontmatter `name` matching folder name |
 | Understand skill ecosystem | `README.md` | Links to official/community collections |
 
 ## CONVENTIONS
 
-- **Skill structure**: YAML frontmatter (`name`, `description`) + markdown instructions
-- **Plugin structure**: `.claude-plugin/plugin.json` + `skills/` subdir
+- **Skill structure**: `skills/<name>/SKILL.md` with YAML frontmatter (`name`, `description`) + markdown instructions
+- **No plugin manifests**: No `.claude-plugin/` — plain Agent Skills layout compatible with `npx skills` and manual copy
 - **No executable code**: Pure documentation skills (SKILL.md files only)
-- **Bilingual docs**: README.md (EN) + README.zh-CN.md (中文)
 
 ## ANTI-PATTERNS (THIS PROJECT)
 
@@ -50,12 +47,12 @@ agent-skillset/
 ## COMMANDS
 
 ```bash
-# Install plugin from marketplace
-claude plugins marketplace add kaichen/agent-skillset
+# Install skills via the skills CLI
+npx skills add kaichen/agent-skillset
 
-# Install specific plugin directly
-claude plugins add agent-skillset:analyze-claude-code
-claude plugins add agent-skillset:discover-skills
+# List / install specific skills
+npx skills add kaichen/agent-skillset --list
+npx skills add kaichen/agent-skillset --skill analyze-claude-code
 
 # No build/test commands - documentation only
 ```

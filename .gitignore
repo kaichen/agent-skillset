@@ -4,3 +4,7 @@
 package/
 
 *.log
+
+# skills CLI (npx skills) install artifacts
+.agents/
+skills-lock.json
