@@ -24,6 +24,7 @@ npx skills add kaichen/agent-skillset --list
 
 # Install a specific skill
 npx skills add kaichen/agent-skillset --skill analyze-claude-code
+npx skills add kaichen/agent-skillset --skill codebase-evidence-review
 npx skills add kaichen/agent-skillset --skill discover-skills
 npx skills add kaichen/agent-skillset --skill grok-search
 ```
