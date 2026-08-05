@@ -13,9 +13,10 @@ Agent Skills collection for skill discovery, source analysis, and Grok browser i
 ```
 agent-skillset/
 ├── skills/
-│   ├── analyze-claude-code/SKILL.md   # Reverse-engineer Claude Code CLI
-│   ├── discover-skills/SKILL.md       # Browse/search skill collections
-│   └── grok-search/SKILL.md           # Grok AI via Claude-in-Chrome MCP
+│   ├── analyze-claude-code/SKILL.md        # Reverse-engineer Claude Code CLI
+│   ├── codebase-evidence-review/SKILL.md   # Source-backed codebase review/audit
+│   ├── discover-skills/SKILL.md            # Browse/search skill collections
+│   └── grok-search/SKILL.md                # Grok AI via Claude-in-Chrome MCP
 └── README.md                          # Install instructions + skill ecosystem overview
 ```
 
@@ -61,4 +62,4 @@ npx skills add kaichen/agent-skillset --skill analyze-claude-code
 
 - **grok-search** requires Claude-in-Chrome MCP extension + grok.com login
 - **analyze-claude-code** downloads ~10MB minified CLI bundle; use `js-beautify` to format
-- Skill locations priority: `.claude/skills/` (project) > plugin bundles > `~/.claude/skills/` (user)
+- Skill locations priority: `.claude/skills/` (project) > `~/.claude/skills/` (user); `.agents/skills/` works as universal layout via `npx skills`

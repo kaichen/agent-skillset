@@ -7,6 +7,7 @@ A collection of Agent Skills, installable with the `skills` CLI (`npx skills`).
 | Skill | Description |
 |-------|-------------|
 | [analyze-claude-code](./skills/analyze-claude-code) | Analyze Claude Code CLI source code |
+| [codebase-evidence-review](./skills/codebase-evidence-review) | Source-backed codebase review and audit with exact file/function references |
 | [discover-skills](./skills/discover-skills) | Discover available skills and popular collections |
 | [grok-search](./skills/grok-search) | Search and research using Grok AI via browser automation |
 

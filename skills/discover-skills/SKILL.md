@@ -15,15 +15,18 @@ When invoked, search for and present all available skills in an organized manner
 
 1. **List Loaded Skills**
 
-   Skills from `~/.claude/skills/` and installed plugins are **already loaded** - check the Skill tool's "Available skills" list first.
+   Skills from `~/.claude/skills/`, `.claude/skills/`, and other agent skill directories are **already loaded** - check the Skill tool's "Available skills" list first.
 
 2. **Search for Additional Skills**
 
    Use Glob tool to find uninstalled skills in the current project:
 
    ```
-   # Plugin skills in workspace
-   Glob: pattern="**/plugins/*/skills/*/SKILL.md"
+   # Any skill folder (covers skills/<name>/ and plugins/<name>/skills/<name>/ layouts)
+   Glob: pattern="**/skills/*/SKILL.md"
+
+   # Single-skill repos with SKILL.md at root
+   Glob: pattern="SKILL.md"
    ```
 
 3. **Search from Github via preset awesome list and Search using keyword**
@@ -156,10 +159,10 @@ gh api repos/owner/repo/git/trees/main?recursive=1 --jq '.tree[] | select(.path 
 ### Quick Install from GitHub
 
 ```bash
-# Clone entire skills repo as plugin
-gh repo clone owner/repo ~/.claude/plugins/repo-name
+# Install via the skills CLI (recommended - works across agents)
+npx skills add owner/repo
 
-# Download single skill
+# Or download a single skill manually
 mkdir -p ~/.claude/skills/skill-name
 gh repo view owner/repo --raw skills/skill-name/SKILL.md > ~/.claude/skills/skill-name/SKILL.md
 ```
