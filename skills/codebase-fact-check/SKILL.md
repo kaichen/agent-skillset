@@ -1,9 +1,9 @@
 ---
-name: codebase-evidence-review
-description: Use this when the user asks to research, review, audit, explain, or trace behavior in a codebase, repository, PR, spec, architecture doc, or local implementation. This skill should trigger for phrases like "基于 codebase", "从头梳理", "review", "audit", "看源码", "研究这份 codebase", "这个流程怎么跑", or when a symptom may be explained by local source. It enforces source-backed findings, exact file/function references, and verification before claims.
+name: codebase-fact-check
+description: When the user asks to research, review, audit, explain, or trace behavior in a codebase, repository, PR, or doc. This skill should trigger for phrases like "基于 codebase", "从头梳理", "review", "audit", "看源码", "研究这份 codebase", "这个流程怎么跑", or when a symptom may be explained by local source. It enforces source-backed findings, exact file/function references, and verification before claims.
 ---
 
-# Codebase Evidence Review
+# Codebase Fact Check
 
 ## Purpose
 
