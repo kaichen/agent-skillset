@@ -7,7 +7,6 @@ A collection of Agent Skills, installable with the `skills` CLI (`npx skills`).
 | Skill | Description |
 |-------|-------------|
 | [codebase-fact-check](./skills/codebase-fact-check) | Source-backed codebase review and audit with exact file/function references |
-| [comeon](./skills/comeon) | 鼓励模型 |
 | [discover-skills](./skills/discover-skills) | Discover available skills and popular collections |
 | [grok-search](./skills/grok-search) | Search and research using Grok AI via browser automation |
 | [herdr-orchestration](./skills/herdr-orchestration) | Orchestrate multiple agents via Herdr terminal multiplexer |
@@ -25,7 +24,6 @@ npx skills add kaichen/agent-skillset --list
 
 # Install a specific skill
 npx skills add kaichen/agent-skillset --skill codebase-fact-check
-npx skills add kaichen/agent-skillset --skill comeon
 npx skills add kaichen/agent-skillset --skill discover-skills
 npx skills add kaichen/agent-skillset --skill grok-search
 npx skills add kaichen/agent-skillset --skill herdr-orchestration
